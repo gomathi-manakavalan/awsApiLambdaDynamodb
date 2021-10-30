@@ -103,37 +103,37 @@ endpoints:
   POST - https://xxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings
   DELETE - https://xxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings/{id}
 functions:
-  listProducts: covidScreenings-api-dev-listProducts
-  getProduct: covidScreenings-api-dev-getProduct
-  createProduct: covidScreenings-api-dev-createProduct
-  deleteProduct: covidScreenings-api-dev-deleteProduct
+  listCovidScreenings: covidScreenings-api-dev-listCovidScreenings
+  getCovidScreening: covidScreenings-api-dev-getCovidScreening
+  createCovidScreening: covidScreenings-api-dev-createCovidScreening
+  deleteCovidScreening: covidScreenings-api-dev-deleteCovidScreening
 ```
 
 ## Test the API
 
 Let's invoke each of the four functions that we created as part of the app.
 
-### Create Product
+### Create CovidScreening
 
 ```
-$ curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings -d '{"name": "Product1", "price": 9.99}'
+$ curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings -d '{"name": "CovidScreening1", "price": 9.99}'
 
-{"id":"ba04f16b-f346-4b54-9884-957c3dff8c0d","name":"Product1","price":9.99}
+{"id":"ba04f16b-f346-4b54-9884-957c3dff8c0d","name":"CovidScreening1","price":9.99}
 ```
 
-### List Products
+### List CovidScreenings
 
 ```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings
 
-[{"id":"dfe41235-0fe5-4e6f-9a9a-19b7b7ee79eb","name":"Product3","price":7.49},
-{"id":"ba04f16b-f346-4b54-9884-957c3dff8c0d","name":"Product1","price":9.99},
-{"id":"6db3efe0-f45c-4c5f-a73c-541a4857ae1d","name":"Product4","price":2.69},
-{"id":"370015f8-a8b9-4498-bfe8-f005dbbb501f","name":"Product2","price":5.99},
-{"id":"cb097196-d659-4ba5-b6b3-ead4c07a8428","name":"Product5","price":15.49}]
+[{"id":"dfe41235-0fe5-4e6f-9a9a-19b7b7ee79eb","name":"CovidScreening3","price":7.49},
+{"id":"ba04f16b-f346-4b54-9884-957c3dff8c0d","name":"CovidScreening1","price":9.99},
+{"id":"6db3efe0-f45c-4c5f-a73c-541a4857ae1d","name":"CovidScreening4","price":2.69},
+{"id":"370015f8-a8b9-4498-bfe8-f005dbbb501f","name":"CovidScreening2","price":5.99},
+{"id":"cb097196-d659-4ba5-b6b3-ead4c07a8428","name":"CovidScreening5","price":15.49}]
 ```
 
-**No Product(s) Found:**
+**No CovidScreening(s) Found:**
 
 ```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings
@@ -141,40 +141,40 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreening
 []
 ```
 
-### Get Product
+### Get CovidScreening
 
 ```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings/ba04f16b-f346-4b54-9884-957c3dff8c0d
 
-{"id":"ba04f16b-f346-4b54-9884-957c3dff8c0d","name":"Product1","price":9.99}
+{"id":"ba04f16b-f346-4b54-9884-957c3dff8c0d","name":"CovidScreening1","price":9.99}
 ```
 
-**Product Not Found:**
+**CovidScreening Not Found:**
 
 ```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings/xxxx
 
-"Product with id: 'xxxx' not found."
+"CovidScreening with id: 'xxxx' not found."
 ```
 
-### DeleteProduct
+### DeleteCovidScreening
 
 ```
 $ curl -X DELETE https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings/24ada348-07e8-4414-8a8f-7903a6cb0253
 ```
 
-**Product Not Found:**
+**CovidScreening Not Found:**
 
 ```
 curl -X DELETE https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/covidScreenings/xxxx
 
-"Product with id: 'xxxx' not found."
+"CovidScreening with id: 'xxxx' not found."
 ```
 
 ## View the CloudWatch Logs
 
 ```
-$ serverless logs --function getProduct
+$ serverless logs --function getCovidScreening
 
 START RequestId: 34f45684-3dd0-11e8-bf8a-7f961671b2de Version: $LATEST
 ...
@@ -183,7 +183,7 @@ START RequestId: 34f45684-3dd0-11e8-bf8a-7f961671b2de Version: $LATEST
 
 ...
 
-2018-04-11 21:35:14 <34f45684-3dd0-11e8-bf8a-7f961671b2de> DEBUG org.apache.http.wire:86 - http-outgoing-0 << "{"Count":1,"Items":[{"price":{"N":"9.99"},"id":{"S":"6f1dfeb9-ea08-4161-8877-f6cc724b39e3"},"name":{"S":"Product1"}}],"ScannedCount":1}"
+2018-04-11 21:35:14 <34f45684-3dd0-11e8-bf8a-7f961671b2de> DEBUG org.apache.http.wire:86 - http-outgoing-0 << "{"Count":1,"Items":[{"price":{"N":"9.99"},"id":{"S":"6f1dfeb9-ea08-4161-8877-f6cc724b39e3"},"name":{"S":"CovidScreening1"}}],"ScannedCount":1}"
 
 ...
 
@@ -191,7 +191,7 @@ START RequestId: 34f45684-3dd0-11e8-bf8a-7f961671b2de Version: $LATEST
 2018-04-11 21:35:14 <34f45684-3dd0-11e8-bf8a-7f961671b2de> DEBUG org.apache.http.impl.conn.PoolingHttpClientConnectionManager:320 - Connection released: [id: 0][route: {s}->https://dynamodb.us-east-1.amazonaws.com:443][total kept alive: 1; route allocated: 1 of 50; total allocated: 1 of 50]
 2018-04-11 21:35:14 <34f45684-3dd0-11e8-bf8a-7f961671b2de> DEBUG com.amazonaws.request:87 - Received successful response: 200, AWS Request ID: MT1EV3AV07T9OD0MJH9VBJSIB7VV4KQNSO5AEMVJF66Q9ASUAAJG
 2018-04-11 21:35:14 <34f45684-3dd0-11e8-bf8a-7f961671b2de> DEBUG com.amazonaws.requestId:136 - x-amzn-RequestId: MT1EV3AV07T9OD0MJH9VBJSIB7VV4KQNSO5AEMVJF66Q9ASUAAJG
-2018-04-11 21:35:14 <34f45684-3dd0-11e8-bf8a-7f961671b2de> INFO  com.serverless.dynamodb.CovidScreening:107 - Products - get(): covidScreening - Product [id=6f1dfeb9-ea08-4161-8877-f6cc724b39e3, name=Product1, price=$9.990000]
+2018-04-11 21:35:14 <34f45684-3dd0-11e8-bf8a-7f961671b2de> INFO  com.serverless.dynamodb.CovidScreening:107 - CovidScreenings - get(): covidScreening - CovidScreening [id=6f1dfeb9-ea08-4161-8877-f6cc724b39e3, name=CovidScreening1, price=$9.990000]
 END RequestId: 34f45684-3dd0-11e8-bf8a-7f961671b2de
 REPORT RequestId: 34f45684-3dd0-11e8-bf8a-7f961671b2de	Duration: 5147.00 ms	Billed Duration: 5200 ms 	Memory Size: 1024 MB	Max Memory Used: 97 MB
 ```
